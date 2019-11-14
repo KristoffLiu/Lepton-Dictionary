@@ -1,0 +1,70 @@
+﻿{
+  "LinearGradientColors": [
+    {
+      "id": 0,
+      "name": "",
+      "GradientColor1": "#FFFF9A9E",
+      "GradientColor2": "#FFFAD0C4"
+    },
+    {
+      "id": 1,
+      "name": "",
+      "GradientColor1": "#FFA18CD1",
+      "GradientColor2": "#FFFBC2EB"
+    },
+    {
+      "id": 2,
+      "name": "",
+      "GradientColor1": "#FFF093FB",
+      "GradientColor2": "#FFF5576C"
+    },
+    {
+      "id": 3,
+      "name": "",
+      "GradientColor1": "#FF84FAB0",
+      "GradientColor2": "#FF8FD3F4"
+    },
+    {
+      "id": 4,
+      "name": "",
+      "GradientColor1": "#FF4facfe",
+      "GradientColor2": "#FF00f2fe"
+    },
+    {
+      "id": 5,
+      "name": "",
+      "GradientColor1": "#FF667EEA",
+      "GradientColor2": "#FF764BA2"
+    },
+    {
+      "id": 6,
+      "name": "",
+      "GradientColor1": "#FF0BA360",
+      "GradientColor2": "#FF3CBA92"
+    },
+    {
+      "id": 7,
+      "name": "",
+      "GradientColor1": "#FFA3BDED",
+      "GradientColor2": "#FF6991C7"
+    },
+    {
+      "id": 8,
+      "name": "",
+      "GradientColor1": "#FF30CFD0",
+      "GradientColor2": "#FF330867"
+    },
+    {
+      "id": 9,
+      "name": "",
+      "GradientColor1": "#FFfa709a",
+      "GradientColor2": "#FFfee140"
+    },
+    {
+      "id": 10,
+      "name": "",
+      "GradientColor1": "#FF434343",
+      "GradientColor2": "#FF000000"
+    }
+  ]
+}

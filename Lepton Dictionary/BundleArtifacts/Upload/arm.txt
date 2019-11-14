@@ -1,0 +1,7 @@
+MainPackage=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_ARM.msix
+SymbolPackage=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0\Lepton Dictionary_2.0.8.0_ARM.appxsym
+ResourcePack=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_language-zh-hans.msix
+ResourcePack=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_scale-100.msix
+ResourcePack=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_scale-125.msix
+ResourcePack=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_scale-150.msix
+ResourcePack=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\ARM\Release\Upload\Lepton Dictionary_2.0.8.0_scale-400.msix

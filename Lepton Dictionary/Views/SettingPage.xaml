@@ -1,0 +1,852 @@
+﻿<Page
+    x:Class="Lepton_Dictionary.Views.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+    xmlns:viewmodels="using:Lepton_Dictionary.ViewModels"
+    xmlns:personalization="using:Lepton_Dictionary.Views.Personalization"
+    RequestedTheme="{x:Bind ViewModel.Theme,Mode=OneWay}"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d"
+    SizeChanged="{x:Bind ViewModel.Page_SizeChanged}">
+    <Page.Resources>
+        <Style x:Key="SettingListViewItemContainerStyle" TargetType="ListViewItem">
+            <Setter Property="MinWidth" Value="{StaticResource SplitViewCompactPaneThemeLength}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <ListViewItemPresenter ContentTransitions="{TemplateBinding ContentTransitions}"
+                        Control.IsTemplateFocusTarget="True"
+                        SelectionCheckMarkVisualEnabled="False"
+                        PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                        PointerOverForeground="{ThemeResource ListViewItemForegroundPointerOver}"
+                        SelectedBackground="{ThemeResource ThemeColorLevel0}"
+                        SelectedForeground="{ThemeResource ContrastColorLevel0}"
+                        SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}"
+                        PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                        SelectedPressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}"
+                        DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        ContentMargin="{TemplateBinding Padding}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Storyboard x:Name="Open" x:FieldModifier="public">
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayer"
+                             Storyboard.TargetProperty="ShadowOpacity"
+                             From="0" To="0.35"
+                             EnableDependentAnimation="True"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageContentGrid"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayerTranslateTransform"
+                                         Storyboard.TargetProperty="Y"
+                             From="150" To="0"
+                                         Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="BackgroundLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <!--<ColorAnimation Storyboard.TargetName="BackgroundLayer"
+                            Storyboard.TargetProperty="Background"
+                            From="{StaticResource Transparent}" To="{StaticResource ColorOne}"
+                            Duration="0:0:0.4">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseIn"></CircleEase>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>-->
+        </Storyboard>
+        <Storyboard x:Name="Close" x:FieldModifier="public" Completed="Close_Completed">
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayer"
+                             Storyboard.TargetProperty="ShadowOpacity"
+                             From="0.35" To="0"
+                             EnableDependentAnimation="True"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageContentGrid"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="SettingPageLayerTranslateTransform"
+                             Storyboard.TargetProperty="Y"
+                             From="0" To="150"
+                             Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="BackgroundLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <!--<ColorAnimation Storyboard.TargetName="BackgroundLayer"
+                            Storyboard.TargetProperty="Background"
+                            From="{StaticResource ColorOne}" To="{StaticResource Transparent}"
+                            Duration="0:0:0.4">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>-->
+        </Storyboard>
+        <viewmodels:AcrylicOpacityToSliderConverter x:Key="AcrylicOpacityToSliderConverter"></viewmodels:AcrylicOpacityToSliderConverter>
+    </Page.Resources>
+    <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Normal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <!--<Setter Target="SettingPageLayer.MinWidth" Value="500"></Setter>
+                        <Setter Target="SettingPageLayer.MaxWidth" Value="700"></Setter>
+                        <Setter Target="SettingPageLayer.MaxHeight" Value="600"></Setter>
+                        <Setter Target="SettingPageLayer.Margin" Value="20,40,20,40"></Setter>-->
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="BackgroundLayer" Background="#44000000" Tapped="BackgroundLayer_Tapped"> </Grid>
+        <controls:DropShadowPanel x:Name="SettingPageLayer" OffsetY="2" ShadowOpacity="0" BlurRadius="20" Opacity="0">
+            <controls:DropShadowPanel.RenderTransform>
+                <TranslateTransform x:Name="SettingPageLayerTranslateTransform"/>
+            </controls:DropShadowPanel.RenderTransform>
+            <Grid x:Name="SettingPageContentGrid" Opacity="0">
+                <ScrollViewer Background="{ThemeResource ThemeBackgroundColorLevel0}"
+                              VerticalScrollBarVisibility="Hidden">
+                    <StackPanel>
+                        <Grid Height="150">
+                            <!--#FF0057-->
+                            <Grid.Background>
+                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                    <GradientStop Color="#FF005799"/>
+                                    <GradientStop Color="#FF0076d1" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Grid.Background>
+                            <TextBlock Text="个人中心" Margin="20,7,0,0" FontWeight="Bold"
+                                       Foreground="White" FontSize="18"></TextBlock>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+                                        VerticalAlignment="Bottom"
+                                        Margin="20,0,0,20">
+                                <PersonPicture Height="80" ProfilePicture="ms-appx:///Assets/Team/Kristoff-Picture.jpg">
+                                </PersonPicture>
+                                <StackPanel Margin="20,0,0,0">
+                                    <TextBlock Text="智康 刘" Foreground="White"
+                                   FontWeight="Bold" FontSize="22"></TextBlock>
+                                    <TextBlock Text="zhikangliu@hotmail.com" Foreground="White"
+                                   FontSize="13"></TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <Pivot Background="{ThemeResource ThemeBackgroundColorLevel0}" Padding="0,-5,0,0">
+                            <PivotItem Margin="0 0">
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="外观"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <personalization:OverView ></personalization:OverView>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="设置"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="0,0,0,20">
+                                        <TextBlock Text="通用" Margin="5,10,0,5"
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Center"></TextBlock>
+                                        <StackPanel>
+                                            <Grid>
+                                                <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                    <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE775;"/>
+                                                    </Border>
+                                                    <TextBlock Text="显示语言" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                                </StackPanel>
+                                                <ComboBox x:Uid="SettingPage_Language" x:Name="LanguageSelectedBox"
+                                                          Background="{ThemeResource ThemeBackgroundColorLevel0}"
+                                                      PlaceholderText="目前仅简体中文" Margin="0,0,0,0"
+                                                      VerticalAlignment="Center"
+                                                      Width="150" BorderThickness="1" HorizontalAlignment="Right">
+                                                    <x:String>目前仅简体中文</x:String>
+                                                </ComboBox>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE704;"/>
+                                                </Border>
+                                                <TextBlock Text="使用计费网络时" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <Grid>
+                                                <TextBlock Text="仍更新每日一句"
+                                                       VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"
+                                                          IsOn="{x:Bind ViewModel.IsOnlineQueriedEntryAutoSaved,Mode=TwoWay}"></ToggleSwitch>
+                                            </Grid>
+                                            <Grid>
+                                                <TextBlock Text="仍联网查询词语" VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center" 
+                                                          IsOn="{x:Bind ViewModel.IsDailySentenceAvailableUnderMeteredInternet,Mode=TwoWay}"></ToggleSwitch>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE95A;"/>
+                                                </Border>
+                                                <TextBlock Text="感知能力" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <Grid>
+                                                <TextBlock Text="App外剪贴板感知" VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0" IsOn="{x:Bind ViewModel.IsClipBoardSenseOn,Mode=TwoWay}"
+                                                          VerticalAlignment="Center" ></ToggleSwitch>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81C;"/>
+                                                </Border>
+                                                <TextBlock Text="历史记录" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <Grid>
+                                                <TextBlock Text="自动记录" VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch x:Name="IsTranslationHistoryAllowedToggleSwitch"
+                                                          IsOn="{x:Bind ViewModel.IsQueryHistoryAllowed,Mode=TwoWay}"
+                                                           HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center" ></ToggleSwitch>
+                                            </Grid>
+                                            <Grid Margin="0,5,0,0">
+                                                <TextBlock Text="删除历史记录" VerticalAlignment="Center"></TextBlock>
+                                                <Button Content="清除" Margin="0,0,0,0" IsEnabled="True"
+                                                    HorizontalAlignment="Right" VerticalAlignment="Center" Click="{x:Bind ViewModel.DeleteAllHistory}"></Button>
+
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE727;"/>
+                                                </Border>
+                                                <TextBlock Text="数据隐私" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <Grid Margin="0,0,0,0">
+                                                <TextBlock Text="该功能未完成" VerticalAlignment="Center"></TextBlock>
+                                                <Button Content="清除数据" Margin="0,0,0,0" IsEnabled="False"
+                                                    HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+                                            </Grid>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE9D9;"/>
+                                                </Border>
+                                                <TextBlock Text="统计" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <Grid Margin="0,0,0,0">
+                                                <TextBlock Text="该功能未完成" VerticalAlignment="Center"></TextBlock>
+                                                <Button Content="清除数据" Margin="0,0,0,0" IsEnabled="False"
+                                                    HorizontalAlignment="Right" VerticalAlignment="Center"></Button>
+                                            </Grid>
+                                        </StackPanel>
+                                        <TextBlock Text="主窗口" Margin="5,10,0,5"
+                                                   FontWeight="Bold"
+                                                   VerticalAlignment="Center"></TextBlock>
+                                        <StackPanel>
+                                            <Grid>
+                                                <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                    <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED4C;"/>
+                                                    </Border>
+                                                    <TextBlock Text="搜索框" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                            <TextBlock Text="点击输入框时" Margin="0,0,0,5"
+                                                       VerticalAlignment="Center"></TextBlock>
+                                            <Grid>
+                                                <TextBlock Text="全选已输入文本" Margin="20,0,0,0"
+                                                       VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"></ToggleSwitch>
+                                            </Grid>
+                                            <Grid>
+                                                <TextBlock Text="激活智能建议列表" Margin="20,0,0,0"
+                                                       VerticalAlignment="Center"></TextBlock>
+                                                <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"></ToggleSwitch>
+                                            </Grid>
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}"
+                                                     Content="词库"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="0,0,0,20">
+                                        <StackPanel>
+                                            <TextBlock Text="扩展系统已经完成，接下来会逐步退出更多扩展程序的，敬请期待" Margin="10,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE736;"/>
+                                                </Border>
+                                                <TextBlock Text="扩展程序" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <local:ExtensionTab></local:ExtensionTab>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="商城"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="0,10,0,20">
+                                        <TextBlock Text="暂未开放，因此用广告占位，敬请期待" VerticalAlignment="Center" ></TextBlock>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF606;"/>
+                                                </Border>
+                                                <TextBlock Text="用爱发电 - 恰饭" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <UI:AdControl ApplicationId="9ndsghkvj2wb"
+                                                          AdUnitId="1100025262"
+                                                          HorizontalAlignment="Left"
+                                                          Height="250"
+                                                          VerticalAlignment="Top"
+                                                          Width="300"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="支持我们"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel Margin="0,0,0,0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                            <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF606;"/>
+                                            </Border>
+                                            <TextBlock Text="用爱发电 - 恰饭" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                        </StackPanel>
+                                        <UI:AdControl ApplicationId="9ndsghkvj2wb"
+                                                      AdUnitId="1100023763"
+                                                      HorizontalAlignment="Left"
+                                                      Height="250"
+                                                      VerticalAlignment="Top"
+                                                      Width="300"/>
+                                        <StackPanel Margin="0,10,0,30">
+                                            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C7;"/>
+                                                </Border>
+                                                <TextBlock Text="赞助我们 :)" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="ms-appx:///Assets/Pictures/Alipay.png"
+                                                           Stretch="UniformToFill" Height="200"
+                                                           Margin="0,10,10,10"></Image>
+                                                <Image Source="ms-appx:///Assets/Pictures/WechatPay.png"
+                                                           Stretch="UniformToFill" Height="200"
+                                                           Margin="10"></Image>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="帮助与反馈"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer>
+                                    <StackPanel>
+                                        <StackPanel Margin="0,10,0,20">
+                                            <TextBlock Text="暂未开放，因此用广告占位，敬请期待" VerticalAlignment="Center" ></TextBlock>
+                                            <StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                                                    <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF606;"/>
+                                                    </Border>
+                                                    <TextBlock Text="用爱发电 - 恰饭" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                                </StackPanel>
+                                                <UI:AdControl ApplicationId="9ndsghkvj2wb"
+                                                      AdUnitId="1100025261"
+                                                      HorizontalAlignment="Left"
+                                                      Height="250"
+                                                      VerticalAlignment="Top"
+                                                      Width="300"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="关于"
+                                                     FontSize="18"
+                                                     Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <ScrollViewer Margin="-12 0">
+                                    <StackPanel Margin="0,0,0,20">
+                                        <StackPanel Margin="12 0">
+                                            <StackPanel Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xECAA;"/>
+                                                    <TextBlock Text="Lepton Dictionary" Margin="10,0,0,0"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <TextBlock Text="一个有态度的轻量词典"></TextBlock>
+                                            <TextBlock Text=""></TextBlock>
+                                            <TextBlock Text="Designed by Lepton Studio ©2018-2019"
+                                                   FontSize="17" FontWeight="Bold"
+                                                   FontStyle="Italic"></TextBlock>
+                                            <StackPanel Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE779;"/>
+                                                    <TextBlock Text="联系方式" Margin="10,0,0,0"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>                                            <TextBlock Text="网站：https://www.leptonstudio.co.uk" IsTextSelectionEnabled="True"></TextBlock>
+                                            <TextBlock Text="微博：https://weibo.com/5651857718" IsTextSelectionEnabled="True"></TextBlock>
+                                            <TextBlock Text="邮箱：zhikangliu@hotmail.com" IsTextSelectionEnabled="True"></TextBlock>
+                                            <TextBlock Text="QQ群：577764267" IsTextSelectionEnabled="True"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <StackPanel Margin="12 10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE902;"/>
+                                                    <TextBlock Text="团队一览" Margin="10,0,0,0"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Margin="0,0,0,20">
+                                                <TextBlock Text="本App开发者" FontWeight="Bold" Margin="12,0,10,10"></TextBlock>
+                                                <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled">
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush ImageSource="ms-appx:///Assets/Team/Kristoff-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="小智" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="Kristoff" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush ImageSource="ms-appx:///Assets/Team/GrayNekoBean-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="灰猫豆豆" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="Derek" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush Stretch="UniformToFill"
+                                                                                    >
+                                                                        <ImageBrush.ImageSource>
+                                                                            <BitmapImage UriSource="ms-appx:///Assets/Team/Tammy-Picture.jpg"
+                                                                                             DecodePixelHeight="200" DecodePixelWidth="200"></BitmapImage>
+                                                                        </ImageBrush.ImageSource>
+                                                                    </ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="塔米" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="Tammy" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </ScrollViewer>
+                                                <TextBlock Text="画师" FontWeight="Bold" Margin="12,15,0,10"></TextBlock>
+                                                <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled">
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush ImageSource="ms-appx:///Assets/Team/Fanshu-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="一只小番薯" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="Fanshu" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush ImageSource="ms-appx:///Assets/Lepton Studio/番薯.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="六月" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="June" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </ScrollViewer>
+
+                                                <TextBlock Text="其他开发者" FontWeight="Bold" Margin="12,10,10,10"></TextBlock>
+                                                <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled">
+                                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                                        <StackPanel Width="125">
+                                                            <Border CornerRadius="35" Width="70" Height="70">
+                                                                <Border.Background>
+                                                                    <ImageBrush ImageSource="ms-appx:///Assets/Team/Billy-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                </Border.Background>
+                                                            </Border>
+                                                            <TextBlock HorizontalAlignment="Center" Text="比利王" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                            <TextBlock HorizontalAlignment="Center" Text="Billy" FontFamily="Segoe Script"></TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </ScrollViewer>
+                                            </StackPanel>
+
+                                            <controls:Expander x:Name="Expander1" VerticalAlignment="Top"
+                                                           Margin="-5,10,0,0"
+                                                           HorizontalContentAlignment="Stretch"
+                                                           IsExpanded="False"
+                                                           ExpandDirection="Down" Visibility="Collapsed">
+                                                <controls:Expander.Header>
+                                                    <StackPanel>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE902;"/>
+                                                            <TextBlock Text="团队一览" Margin="10,0,0,0"></TextBlock>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </controls:Expander.Header>
+                                                <StackPanel Margin="39,20,0,20">
+                                                    <TextBlock Text="开发者" FontWeight="Bold" Margin="0,0,0,10"></TextBlock>
+                                                    <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled">
+                                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                                            <StackPanel Width="125">
+                                                                <Border CornerRadius="35" Width="70" Height="70">
+                                                                    <Border.Background>
+                                                                        <ImageBrush ImageSource="ms-appx:///Assets/Team/Kristoff-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                    </Border.Background>
+                                                                </Border>
+                                                                <TextBlock HorizontalAlignment="Center" Text="小智" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                                <TextBlock HorizontalAlignment="Center" Text="Kristoff" FontFamily="Segoe Script"></TextBlock>
+                                                            </StackPanel>
+                                                            <StackPanel Width="125">
+                                                                <Border CornerRadius="35" Width="70" Height="70">
+                                                                    <Border.Background>
+                                                                        <ImageBrush ImageSource="ms-appx:///Assets/Team/Billy-Picture.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                    </Border.Background>
+                                                                </Border>
+                                                                <TextBlock HorizontalAlignment="Center" Text="兔子" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                                <TextBlock HorizontalAlignment="Center" Text="Billy" FontFamily="Segoe Script"></TextBlock>
+                                                            </StackPanel>                                                            <StackPanel Width="125">
+                                                                <Border CornerRadius="35" Width="70" Height="70">
+                                                                    <Border.Background>
+                                                                        <ImageBrush Stretch="UniformToFill"
+                                                                                    >
+                                                                            <ImageBrush.ImageSource>
+                                                                                <BitmapImage UriSource="ms-appx:///Assets/Team/Tammy-Picture.jpg"
+                                                                                             DecodePixelHeight="200" DecodePixelWidth="200"></BitmapImage>
+                                                                            </ImageBrush.ImageSource>
+                                                                        </ImageBrush>
+                                                                    </Border.Background>
+                                                                </Border>
+                                                                <TextBlock HorizontalAlignment="Center" Text="塔米" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                                <TextBlock HorizontalAlignment="Center" Text="Tammy" FontFamily="Segoe Script"></TextBlock>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </ScrollViewer>
+                                                    <TextBlock Text="画师" FontWeight="Bold" Margin="0,15,0,10"></TextBlock>
+                                                    <ScrollViewer VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Enabled">
+                                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
+                                                            <StackPanel Width="125">
+                                                                <Border CornerRadius="35" Width="70" Height="70">
+                                                                    <Border.Background>
+                                                                        <ImageBrush ImageSource="ms-appx:///Assets/Lepton Studio/番薯.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                    </Border.Background>
+                                                                </Border>
+                                                                <TextBlock HorizontalAlignment="Center" Text="番薯" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                                <TextBlock HorizontalAlignment="Center" Text="Fanshu" FontFamily="Segoe Script"></TextBlock>
+                                                            </StackPanel>
+                                                            <StackPanel Width="125">
+                                                                <Border CornerRadius="35" Width="70" Height="70">
+                                                                    <Border.Background>
+                                                                        <ImageBrush ImageSource="ms-appx:///Assets/Lepton Studio/番薯.jpg" Stretch="UniformToFill"></ImageBrush>
+                                                                    </Border.Background>
+                                                                </Border>
+                                                                <TextBlock HorizontalAlignment="Center" Text="六月" FontWeight="Light" Margin="0,5,0,0"></TextBlock>
+                                                                <TextBlock HorizontalAlignment="Center" Text="June" FontFamily="Segoe Script"></TextBlock>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </ScrollViewer>
+                                                </StackPanel>
+                                            </controls:Expander>
+                                        </StackPanel>
+
+                                        <StackPanel Margin="10,10,10,0">
+
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ScrollViewer>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}"
+                                                     Content="更新" Margin="-10,0,-10,0"
+                                                     FontSize="18">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <StackPanel Margin="5,0,5,15">
+                                    <StackPanel Margin="5,5,5,5">
+                                        <StackPanel Orientation="Horizontal" Margin="-5,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA80;" VerticalAlignment="Center"/>
+                                            <TextBlock Text="2.0.8 新功能" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF08C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="优化夜间模式" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使夜间模式更加美观，并同时提高可读性" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0AD;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="系统要求上调回去了" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="因为一些必需API的支持，经过慎重决定，我们还是把系统要求调回了1903" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF22C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="Lepton词典 扩展系统" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="现在词典可以支持第三方或外置的扩展程序了" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF085;" FontSize="24" VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"/>
+                                            <StackPanel HorizontalAlignment="Left" Margin="23,0,0,0">
+                                                <TextBlock Text="多语言支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="有了扩展系统的支持，现在lepton词典可以支持最多多达10种语言" FontSize="12"
+                                                           TextWrapping="WrapWholeWords"
+                                                           Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE982;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="内置双语支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="不止英汉词典，现在Lepton也内置了汉英词典" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+
+                                        <!--<Grid>
+                                            <StackPanel Orientation="Horizontal" Margin="0 5">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE939;" FontSize="24" VerticalAlignment="Center"/>
+                                                <StackPanel>
+                                                    <TextBlock Text="反馈与建议通道" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                    <TextBlock Text="打开 设置-反馈与建议 即可跟我们反馈问题" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Border Height="2" Background="{ThemeResource ContrastColorLevel0}" Width="270" HorizontalAlignment="Left"></Border>
+                                            <TextBlock Text="做不完了这版本这功能先鸽了" Margin="280,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                        </Grid>-->
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Center" CornerRadius="5">
+                                        <TextBlock Text="以下为旧版本" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Center" CornerRadius="5">
+                                        <TextBlock Text="以下为 2.x.x 一周年 版本 [代号：夏念]" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.7 2019/8/5" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE964;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="增加了版本更新说明" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使用户能更直观了解每次更新的内容" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0AE;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="下调了系统安装要求" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="现在Lepton词典可以在任意版本号在1803及以上的Windows10系统上安装了" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA91;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="查词系统强化" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="容错率更高的单词联想以及补错功能" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="语音输入" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="您现在可以通过声音输入单词进行查询了" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF90;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="连贯动画" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使app的内部页面导航更加顺畅" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE771;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="单词卡UI重做" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="重新设计了单词卡的UI以及动画效果" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.6 2019/8/3" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 重新设计了首页（每日一句）的UI。"></TextBlock>
+                                        <TextBlock Text="· 重新设计了设置页面的UI。"></TextBlock>
+                                        <TextBlock Text="· 悬浮小窗现在已从主窗口中独立出来，开启之后主窗口不会消失。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.5 2019/8/2" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 增加了商城qwq。（也就是加载项管理，不一定是要付费的）"></TextBlock>
+                                        <TextBlock Text="· 增加了广告qwq。"></TextBlock>
+                                        <TextBlock Text="· 悬浮小窗现在已从主窗口中独立出来，开启之后主窗口不会消失。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.4 2019/8/2" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 增加了拖拽取词 - 可以拖拽文本到APP内查词了。"></TextBlock>
+                                        <TextBlock Text="· 增加了剪贴板感知 - 回到App内时会自动感知用户是否有复制新的文本，并弹出通知。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.3 2019/7/31" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 修复了查词建议列表的若干bug。"></TextBlock>
+                                        <TextBlock Text="· 增加了插画更换支持。"></TextBlock>
+                                        <TextBlock Text="· 美化UI，提高稳定性。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.0 2019/7/30" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 我们献祭了高考完的程序员，重新设计了UI，使界面焕然一新。"></TextBlock>
+                                        <TextBlock Text="· 代码重写，提高了程序稳定性。"></TextBlock>
+                                        <TextBlock Text="· 词典源（未来会逐步更新）让你可以多方面参考。"></TextBlock>
+                                        <TextBlock Text="· 离线词库让你在没有网络的情况下也能查词。"></TextBlock>
+                                        <TextBlock Text="· 人性化的辅助功能（未来会逐步更新）助你提升生产力。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Center" CornerRadius="5">
+                                        <TextBlock Text="以下为 1.x.x 开发 beta版本" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Text="过于久远不再记入。" Margin="0,0,0,10"></TextBlock>
+                                </StackPanel>
+                            </PivotItem>
+                        </Pivot>
+                    </StackPanel>
+                </ScrollViewer>
+                <!--<personalization:Theme></personalization:Theme>-->
+            </Grid>
+        </controls:DropShadowPanel>
+    </Grid>
+</Page>

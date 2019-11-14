@@ -1,0 +1,2 @@
+MainPackage=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\x86\Release\Upload\Lepton Dictionary_2.0.8.0_x86.msix
+SymbolPackage=C:\Users\zhika\Source\Repos\Lepton Dictionary\Lepton Dictionary\bin\x86\Release\Upload\Lepton Dictionary_2.0.8.0\Lepton Dictionary_2.0.8.0_x86.appxsym

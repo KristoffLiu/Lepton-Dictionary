@@ -1,0 +1,17 @@
+﻿<Application
+    x:Class="Lepton_Dictionary.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/CustomStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light" Source="Themes/LightThemeDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary x:Key="Dark" Source="Themes/DarkThemeDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

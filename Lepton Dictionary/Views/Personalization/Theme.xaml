@@ -1,0 +1,79 @@
+﻿<Page
+    x:Class="Lepton_Dictionary.Views.Personalization.Theme"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views.Personalization"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel Padding="10 0">
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC87;"/>
+                </Border>
+                <TextBlock Text="插画" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                <StackPanel HorizontalAlignment="Left"
+                            >
+                    
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <!--<controls:Carousel x:Name="ThemeSelectionCarousel"
+                           ItemMargin="5"
+                           ItemDepth="200"
+                           HorizontalAlignment="Left"
+                           SelectedIndex="{x:Bind ViewModel.BackgroundImageViewModelIndex,Mode=TwoWay}"
+                           Margin="0,20,0,20">
+            <controls:DropShadowPanel Margin="10" BlurRadius="8" ShadowOpacity="0.2" 
+                                                                          OffsetY="1">
+                <Grid Width="250" Height="150" Background="White">
+                    <Image Source="ms-appx:///Assets/Art/Girl_June/Light.png" Margin="0,0,15,0"></Image>
+                    <Border BorderThickness="1"
+                                                            Grid.Column="2"
+                                                            Height="400">
+                        <Border.Background>
+                            <media:BackdropBlurBrush Amount="2"/>
+                        </Border.Background>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" >
+                        <TextBlock Text="少女"
+                                                               FontSize="23"
+                                                               FontWeight="light"
+                                                                   TextAlignment="Center"
+                                                               Foreground="Black"></TextBlock>
+                        <TextBlock Text="画者: June" Foreground="Black" TextAlignment="Center"
+                                                                       FontWeight="light"></TextBlock>
+                    </StackPanel>
+
+                </Grid>
+            </controls:DropShadowPanel>
+            <controls:DropShadowPanel Margin="10" BlurRadius="10" ShadowOpacity="0.15" 
+                                                                      OffsetY="3">
+                <Grid Width="250" Height="150" Background="White">
+                    <Image Source="ms-appx:///Assets/Art/CrouchingCat_Fanshu/Light.png" Margin="0,0,0,0"></Image>
+                    <Border BorderThickness="1"
+                                                            Grid.Column="2"
+                                                            Height="400">
+                        <Border.Background>
+                            <media:BackdropBlurBrush Amount="2" />
+                        </Border.Background>
+                    </Border>
+                    <StackPanel VerticalAlignment="Center" >
+                        <TextBlock Text="猫"
+                                                               FontSize="23"
+                                                               FontWeight="light"
+                                                                   TextAlignment="Center"
+                                                               Foreground="Black"></TextBlock>
+                        <TextBlock Text="画者: Fanshu" Foreground="Black" TextAlignment="Center" FontWeight="light"></TextBlock>
+                    </StackPanel>
+                </Grid>
+            </controls:DropShadowPanel>
+        </controls:Carousel>-->
+    </Grid>
+</Page>

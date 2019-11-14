@@ -1,0 +1,241 @@
+﻿<Page
+    x:Class="Lepton_Dictionary.Views.Personalization.OverView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views.Personalization"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:viewmodels="using:Lepton_Dictionary.ViewModels"
+    xmlns:muxcontrols="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <muxcontrols:CommandBarFlyout x:Name="ManipulationFlyout" Placement="Right">
+            <muxcontrols:CommandBarFlyout.SecondaryCommands>
+                <AppBarElementContainer>
+                    <Frame x:Name="MenuFrame"></Frame>
+                </AppBarElementContainer>
+            </muxcontrols:CommandBarFlyout.SecondaryCommands>
+        </muxcontrols:CommandBarFlyout>
+        <viewmodels:AcrylicOpacityToSliderConverter x:Key="AcrylicOpacityToSliderConverter"></viewmodels:AcrylicOpacityToSliderConverter>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Margin="0,0,0,20">
+            <Grid Margin="10 0">
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                    <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC26;"/>
+                    </Border>
+                    <TextBlock Text="全局视图" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <TextBlock Text="请选择一项以进行自定义"
+                                                           Margin="0,15,0,20"
+                                                           FontSize="18"
+                                                           HorizontalAlignment="Center"></TextBlock>
+
+            <Grid>
+                <StackPanel Margin="20 0">
+                    <Viewbox Margin="-10 10" MaxWidth="700">
+                        <Grid Background="White">
+                            <Border BorderBrush="#FF555555"
+                                                            BorderThickness="1"
+                                                            Width="400"
+                                                            Height="250">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="3*"></RowDefinition>
+                                        <RowDefinition Height="5*"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                                        <ColumnDefinition Width="5*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Background="Gray">
+                                        <StackPanel Orientation="Horizontal"
+                                                                            Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                                                VerticalAlignment="Top"
+                                                                              HorizontalAlignment="Left"
+                                                                              Margin="10,10,0,0">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                                              
+                                                                              FontSize="10" Foreground="White"
+                                                                              Glyph="&#xECCB;"/>
+                                            <TextBlock Text="顶页设计" Foreground="White" FontSize="9" Margin="5,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+
+                                        <StackPanel VerticalAlignment="Bottom"
+                                                                                Margin="0,0,0,10">
+                                            <TextBlock Text="搜索" Margin="15,0,0,5"
+                                                                               FontWeight="Bold" Foreground="White"></TextBlock>
+                                            <Grid Height="18" Width="128"
+                                                                              Background="{ThemeResource ThemeBackgroundColorLevel1}">
+                                                <StackPanel Orientation="Horizontal"
+                                                                            Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                                          HorizontalAlignment="Left" VerticalAlignment="Center"
+                                                                          Margin="10,0,0,0">
+                                                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                                                  VerticalAlignment="Center"
+                                                                                  FontSize="10" Foreground="{ThemeResource ContrastColorLevel1}"
+                                                                                  Glyph="&#xECCB;"/>
+                                                    <TextBlock Text="lepton 输入框" FontSize="9" Margin="5,0,0,0"></TextBlock>
+                                                </StackPanel>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Background="{ThemeResource CustomAcrylicBackgroundBrush}" Grid.Row="1">
+                                        <StackPanel HorizontalAlignment="Left" Margin="10">
+                                            <Border Background="#FFCCCCCC" Width="15" Height="15" HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="14" Height="4" HorizontalAlignment="Left"
+                                                                            Margin="0,5,0,0"></Border>
+                                            <Border Background="#FFCCCCCC" Width="90" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="40" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="30" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="100" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="60" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="60" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="40" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="70" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="80" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="90" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                            <Border Background="#FFCCCCCC" Width="50" Height="5" Margin="0,5,0,0"
+                                                                             HorizontalAlignment="Left"></Border>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal"
+                                                                            Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                                          HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                                          Margin="30,0,0,40">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                                                  VerticalAlignment="Center"
+                                                                                  FontSize="10" Foreground="{ThemeResource ContrastColorLevel2}"
+                                                                                  Glyph="&#xECCB;"/>
+                                            <TextBlock Text="每日一句" FontSize="9" Margin="5,0,0,0"></TextBlock>
+                                        </StackPanel>
+
+
+
+                                    </Grid>
+                                    <Grid Background="{ThemeResource ThemeBackgroundColorLevel0_2}" Grid.Column="1"
+                                                                  Grid.RowSpan="2">
+                                        <Image Source="ms-appx:///Assets/Art/test.jpg" Width="100" Margin="0,0,15,0"></Image>
+                                        <!--ms-appx:///Assets/Art/Girl_June/Light.png-->
+                                        <!--ms-appx:///Assets/Art/test.jpg-->
+                                        <StackPanel Orientation="Horizontal"
+                                                    Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                    Margin="0,80,0,0"
+                                                    Tapped="StackPanel_Tapped">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                                          FontSize="10" Foreground="{ThemeResource ContrastColorLevel1}"
+                                                                          Glyph="&#xECCB;"/>
+                                            <TextBlock Text="主题与插画" FontSize="9" Margin="5,0,0,0"></TextBlock>
+                                        </StackPanel>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal"
+                                                                            Grid.RowSpan="2" Grid.ColumnSpan="2"
+                                                                            HorizontalAlignment="Center" VerticalAlignment="Top"
+                                                                            Margin="0,10,0,0">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                                          FontSize="10" Foreground="{ThemeResource ContrastColorLevel1}"
+                                                                          Glyph="&#xECCB;"/>
+                                        <TextBlock Text="标题栏" FontSize="9" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                </StackPanel>
+            </Grid>
+            <StackPanel>
+                <Grid Margin="10 0">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                        <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF08C;"/>
+                        </Border>
+                        <TextBlock Text="夜间模式" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <ToggleSwitch x:Name="ThemeModeToggleSwitch" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Right"
+                                                          x:Uid="SettingPage_NightMode"
+                                                          IsOn="{x:Bind ViewModel.IsNightMode,Mode=TwoWay}"
+                                                  ></ToggleSwitch>
+                </Grid>
+                <Grid Margin="10 0">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                        <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF156;"/>
+                        </Border>
+                        <TextBlock Text="亚克力背景透明度" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <Slider Margin="0,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Right"
+                                                        MaxWidth="200"
+                                                        MinWidth="150"
+                                                        Maximum="100"
+                                                        Minimum="50"
+                                                        SmallChange="5"
+                                                        TickFrequency="10"
+                                                        TickPlacement="Outside"
+                                                        x:Uid="SettingPage_NightMode"
+                                                        Value="{x:Bind ViewModel.BackgroundAcrylicOpacity,Mode=TwoWay,Converter={StaticResource AcrylicOpacityToSliderConverter}}"
+                                                  ></Slider>
+                </Grid>
+                <Grid Margin="10 0">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,10" HorizontalAlignment="Left">
+                        <Border Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="6 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEC42;"
+                                                                  Margin="0,-3,0,1"/>
+                        </Border>
+                        <TextBlock Text="搜索框占位符文本" Margin="10,0,0,0" VerticalAlignment="Center"></TextBlock>
+                    </StackPanel>
+                    <ToggleSwitch Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Right"
+                                                          x:Uid="SettingPage_NightMode"
+                                                          IsOn="{x:Bind ViewModel.IsNightMode,Mode=TwoWay}"
+                                                  ></ToggleSwitch>
+                </Grid>
+                <controls:DropShadowPanel ShadowOpacity="0.2" HorizontalContentAlignment="Stretch"
+                                                                      Margin="10"
+                                                                      Padding="10,10,10,10">
+                    <StackPanel Background="{ThemeResource ThemeBackgroundColorLevel0}">
+                        <ListView>
+                            <Grid>
+                                <TextBlock Text="输入词汇以查询（＝。＝）" FontStyle="Oblique"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <TextBlock Text="你看这个输入框它又大又宽♪(^∇^*)" FontStyle="Oblique"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <TextBlock Text="就像那个词儿它又长又难o(￣ヘ￣o＃)" FontStyle="Oblique"></TextBlock>
+                            </Grid>
+                            <Grid>
+                                <TextBlock Text="书山有路勤为径(๑•̀ㅂ•́)و✧" FontStyle="Oblique"></TextBlock>
+                            </Grid>
+                        </ListView>
+                        <Button Content="增加占位符文本" Margin="10 10"></Button>
+                    </StackPanel>
+
+                </controls:DropShadowPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

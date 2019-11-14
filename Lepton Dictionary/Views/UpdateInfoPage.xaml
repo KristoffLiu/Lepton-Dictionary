@@ -1,0 +1,476 @@
+﻿<Page
+    x:Class="Lepton_Dictionary.Views.UpdateInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="Open" x:FieldModifier="public">
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanel"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanel"
+                             Storyboard.TargetProperty="ShadowOpacity"
+                             From="0" To="0.35"
+                             EnableDependentAnimation="True"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideGrid"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanelTranslateTransform"
+                                         Storyboard.TargetProperty="Y"
+                             From="150" To="0"
+                                         Duration="0:0:0.6">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="BackgroundLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0" To="1"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="Close" x:FieldModifier="public" Completed="Close_Completed">
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanel"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanel"
+                             Storyboard.TargetProperty="ShadowOpacity"
+                             From="0.35" To="0"
+                             EnableDependentAnimation="True"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideGrid"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="UpdateInfoInsideDropShadowPanelTranslateTransform"
+                             Storyboard.TargetProperty="Y"
+                             From="0" To="150"
+                             Duration="0:0:0.4">
+                <DoubleAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="BackgroundLayer"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1" To="0"
+                             Duration="0:0:0.4">
+            </DoubleAnimation>
+            <!--<ColorAnimation Storyboard.TargetName="BackgroundLayer"
+                            Storyboard.TargetProperty="Background"
+                            From="{StaticResource ColorOne}" To="{StaticResource Transparent}"
+                            Duration="0:0:0.4">
+                <ColorAnimation.EasingFunction>
+                    <CircleEase EasingMode="EaseOut"></CircleEase>
+                </ColorAnimation.EasingFunction>
+            </ColorAnimation>-->
+        </Storyboard>
+    </Page.Resources>
+    <Grid Margin="0,0,0,0">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="Normal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="750" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="UpdateInfoInsideGrid.MaxHeight" Value="600"></Setter>
+                        <Setter Target="UpdateInfoInsideGrid.MinHeight" Value="300"></Setter>
+                        <Setter Target="UpdateInfoInsideGrid.Width" Value="650"></Setter>
+                        <Setter Target="UpdateInfoInsideDropShadowPanel.Margin" Value="0,50,0,50"></Setter>
+                        <Setter Target="UpdateInfoInsideDropShadowPanel.HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Target="UpdateInfoInsideDropShadowPanel.VerticalAlignment" Value="Center"></Setter>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="BackgroundLayer" Background="#55000000">
+            <!--<Grid.Background>
+                <media:BackdropBlurBrush x:Name="DragBorderBackdropBlurBrush" Amount="5" />
+            </Grid.Background>-->
+        </Grid>
+        <controls:DropShadowPanel x:Name="UpdateInfoInsideDropShadowPanel" HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Stretch"
+                                  ShadowOpacity="0.35" OffsetY="1" BlurRadius="20"
+                                  >
+            <controls:DropShadowPanel.RenderTransform>
+                <TranslateTransform x:Name="UpdateInfoInsideDropShadowPanelTranslateTransform"/>
+            </controls:DropShadowPanel.RenderTransform>
+
+            <Grid x:Name="UpdateInfoInsideGrid" Background="{ThemeResource ThemeBackgroundColorLevel1}">
+                <Grid Background="{ThemeResource ThemeBackgroundColorLevel0}" Margin="0,90,0,0"></Grid>
+                <ScrollViewer>
+                    <StackPanel>
+                        <TextBlock Text="欢迎回来" FontSize="28" FontWeight="Light"
+                                   Margin="15,20,0,0"></TextBlock>
+                        <TextBlock Text="你的Lepton 词典已经升级到了3.0.0版本【开发预览版 Alpha 29】" FontSize="16" FontWeight="Light"
+                                   Margin="15,0,0,10"></TextBlock>
+                        <Pivot Background="{ThemeResource ThemeBackgroundColorLevel0}">
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="新增内容"
+                                                         FontSize="18"
+                                                         Margin="-10,0,-10,0">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <StackPanel>
+                                    <StackPanel Margin="5,5,5,5">
+                                        <StackPanel Orientation="Horizontal" Margin="-5,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA80;" VerticalAlignment="Center"/>
+                                            <TextBlock Text="3.0.0 版本 代号 🌙秋月竹枝" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF69E;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="签约画师的独家主题" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="嘻嘻，我们亲爱的画师又开始干活啦，给lepton带来了一些新的色彩~" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF4A9;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="动态主题" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="支持动态插画，并且主题将随时间变化而自动切换 [找不到合适的图标了]" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel> 
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF08C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="优化夜间模式" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使夜间模式更加美观，并同时提高可读性" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF5AD;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text=".mdx 文件格式词库支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="有了.mdx支持，意味着lepton可以支持95%以上市面上的所有词库" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8D2;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="精致文本" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="重新协调过的文本字体和大小样式提高了整体的可读性" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF5EE;" FontSize="24" VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"/>
+                                            <StackPanel HorizontalAlignment="Left" Margin="23,0,0,0">
+                                                <TextBlock Text="流畅UI设计优化" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使用现代动画库重写，使跨窗口和程序内的UI动画更加丝滑流畅" FontSize="12"
+                                                           TextWrapping="WrapWholeWords"
+                                                           Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED4C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="lepton 输入框" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="重新设计的输入框支持更多自定义和个性化操作" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEDA9;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="Lepton API支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="萌新地设计了一些API，可供其他app调用，或允许其他app充当扩展，提供词库数据" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        
+                                    </StackPanel>
+                                    <StackPanel Margin="0,5,5,15">
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xED5F;" VerticalAlignment="Center"/>
+                                            <TextBlock Text="快速入门一些热门设定" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE708;"/>
+                                                <TextBlock Text="夜间模式" Margin="10,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                            <ToggleSwitch x:Name="ThemeModeToggleSwitch" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center"
+                                                          HorizontalAlignment="Right"
+                                                          x:Uid="SettingPage_NightMode"
+                                                          IsOn="{x:Bind ViewModel.IsNightMode,Mode=TwoWay}"
+                                                          ></ToggleSwitch>
+                                        </Grid>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE95A;"/>
+                                                <TextBlock Text="App外剪贴板感知" Margin="10,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                            <ToggleSwitch HorizontalAlignment="Right" Margin="0,0,-80,0" IsOn="{x:Bind ViewModel.IsClipBoardSenseOn,Mode=TwoWay}"
+                                                          VerticalAlignment="Center" ></ToggleSwitch>
+                                        </Grid>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal" Margin="10,10,10,10">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE727;"/>
+                                                <TextBlock Text="自动记录查词历史记录" Margin="10,0,0,0"></TextBlock>
+                                            </StackPanel>
+                                            <ToggleSwitch x:Name="IsTranslationHistoryAllowedToggleSwitch"
+                                                          IsOn="{x:Bind ViewModel.IsQueryHistoryAllowed,Mode=TwoWay}"
+                                                           HorizontalAlignment="Right" Margin="0,0,-80,0"
+                                                          VerticalAlignment="Center" ></ToggleSwitch>
+                                        </Grid>
+                                    </StackPanel>
+                                    <Button Background="{ThemeResource ThemeBackgroundColorLevel1}"
+                                            Click="Button_Click"
+                                                Margin="0,30,0,30"
+                                                Height="40" CornerRadius="20" Width="250" HorizontalAlignment="Center" Content="继续使用">
+                                    </Button>
+                                </StackPanel>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}" Content="帮我们发电" Margin="-10,0,-10,0"
+                                                         FontSize="18">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF606;"/>
+                                            <TextBlock Text="用爱发电（恰饭）" Margin="10,0,0,0"></TextBlock>
+                                        </StackPanel>
+                                    <GridView>
+                                        <UI:AdControl ApplicationId="9ndsghkvj2wb"
+                                                      AdUnitId="1100025261"
+                                                      HorizontalAlignment="Left"
+                                                      Height="250"
+                                                      VerticalAlignment="Top"
+                                                      Width="300"/>
+
+                                        <UI:AdControl ApplicationId="9ndsghkvj2wb"
+                                                      AdUnitId="1100023763"
+                                                      HorizontalAlignment="Left"
+                                                      Height="250"
+                                                      VerticalAlignment="Top"
+                                                      Width="300"/>
+                                    </GridView>
+                                    <StackPanel Margin="0,30,0,30">
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                    HorizontalAlignment="Left" CornerRadius="5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8C7;"/>
+                                            <TextBlock Text="赞助我们 :)" Margin="10,0,0,0"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="ms-appx:///Assets/Pictures/Alipay.png"
+                                                           Stretch="UniformToFill" Height="200"
+                                                           Margin="0,10,10,10"></Image>
+                                            <Image Source="ms-appx:///Assets/Pictures/WechatPay.png"
+                                                           Stretch="UniformToFill" Height="200"
+                                                           Margin="10"></Image>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </PivotItem>
+                            <PivotItem>
+                                <PivotItem.Header>
+                                    <PivotHeaderItem Style="{StaticResource PivotHeaderItemStyle}"
+                                                     Content="往期更新" Margin="-10,0,-10,0"
+                                                     FontSize="18">
+                                    </PivotHeaderItem>
+                                </PivotItem.Header>
+                                <StackPanel Margin="5,0,5,15">
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Center" CornerRadius="5">
+                                        <TextBlock Text="以下为 2.0.8 一周年 版本 [代号：夏念]" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.8 2019/8/5" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF08C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="优化夜间模式" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使夜间模式更加美观，并同时提高可读性" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0AD;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="系统要求上调回去了" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="因为一些必需API的支持，经过慎重决定，我们还是把系统要求调回了1903" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF22C;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="Lepton词典 扩展系统" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="现在词典可以支持第三方或外置的扩展程序了" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF085;" FontSize="24" VerticalAlignment="Center"
+                                                      HorizontalAlignment="Left"/>
+                                            <StackPanel HorizontalAlignment="Left" Margin="23,0,0,0">
+                                                <TextBlock Text="多语言支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="有了扩展系统的支持，现在lepton词典可以支持最多多达10种语言" FontSize="12"
+                                                           TextWrapping="WrapWholeWords"
+                                                           Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE982;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="内置双语支持" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="不止英汉词典，现在Lepton也内置了汉英词典" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.7 2019/8/5" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE964;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="增加了版本更新说明" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使用户能更直观了解每次更新的内容" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0AE;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="下调了系统安装要求" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="现在Lepton词典可以在任意版本号在1803及以上的Windows10系统上安装了" TextWrapping="WrapWholeWords"
+                                                           FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEA91;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="查词系统强化" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="容错率更高的单词联想以及补错功能" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE720;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="语音输入" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="您现在可以通过声音输入单词进行查询了" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEF90;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="连贯动画" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="使app的内部页面导航更加顺畅" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0 5">
+                                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE771;" FontSize="24" VerticalAlignment="Center"/>
+                                            <StackPanel>
+                                                <TextBlock Text="单词卡UI重做" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Text="重新设计了单词卡的UI以及动画效果" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <Grid>
+                                            <StackPanel Orientation="Horizontal" Margin="0 5">
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE939;" FontSize="24" VerticalAlignment="Center"/>
+                                                <StackPanel>
+                                                    <TextBlock Text="反馈与建议通道" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                    <TextBlock Text="打开 设置-反馈与建议 即可跟我们反馈问题" FontSize="12" Margin="10,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <Border Height="2" Background="{ThemeResource ContrastColorLevel0}" Width="270" HorizontalAlignment="Left"></Border>
+                                            <TextBlock Text="做不完了这版本这功能先鸽了" Margin="280,0,0,0" VerticalAlignment="Center"></TextBlock>
+                                        </Grid>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,10,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.6 2019/8/3" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 重新设计了首页（每日一句）的UI。"></TextBlock>
+                                        <TextBlock Text="· 重新设计了设置页面的UI。"></TextBlock>
+                                        <TextBlock Text="· 悬浮小窗现在已从主窗口中独立出来，开启之后主窗口不会消失。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.5 2019/8/2" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 增加了商城qwq。（也就是加载项管理，不一定是要付费的）"></TextBlock>
+                                        <TextBlock Text="· 增加了广告qwq。"></TextBlock>
+                                        <TextBlock Text="· 悬浮小窗现在已从主窗口中独立出来，开启之后主窗口不会消失。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.4 2019/8/2" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 增加了拖拽取词 - 可以拖拽文本到APP内查词了。"></TextBlock>
+                                        <TextBlock Text="· 增加了剪贴板感知 - 回到App内时会自动感知用户是否有复制新的文本，并弹出通知。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.3 2019/7/31" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 修复了查词建议列表的若干bug。"></TextBlock>
+                                        <TextBlock Text="· 增加了插画更换支持。"></TextBlock>
+                                        <TextBlock Text="· 美化UI，提高稳定性。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Left" CornerRadius="5">
+                                            <TextBlock Text="2.0.0 2019/7/30" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                        </StackPanel>
+                                        <TextBlock Text="· 我们献祭了高考完的程序员，重新设计了UI，使界面焕然一新。"></TextBlock>
+                                        <TextBlock Text="· 代码重写，提高了程序稳定性。"></TextBlock>
+                                        <TextBlock Text="· 词典源（未来会逐步更新）让你可以多方面参考。"></TextBlock>
+                                        <TextBlock Text="· 离线词库让你在没有网络的情况下也能查词。"></TextBlock>
+                                        <TextBlock Text="· 人性化的辅助功能（未来会逐步更新）助你提升生产力。"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,20,0,10" Background="{ThemeResource ThemeBackgroundColorLevel2}" Padding="10 6"
+                                                        HorizontalAlignment="Center" CornerRadius="5">
+                                        <TextBlock Text="以下为 1.x.x 开发 beta版本" Margin="0,0,0,0" VerticalAlignment="Bottom"></TextBlock>
+                                    </StackPanel>
+                                    <TextBlock Text="过于久远不再记入。" Margin="0,0,0,10"></TextBlock>
+                                </StackPanel>
+                            </PivotItem>
+                        </Pivot>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+        </controls:DropShadowPanel>
+    </Grid>
+
+</Page>

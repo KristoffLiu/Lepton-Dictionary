@@ -1,0 +1,81 @@
+﻿
+    <Page
+    x:Class="Lepton_Dictionary.Views.ExtensionTab"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local1="using:Lepton_Dictionary.Models"
+    mc:Ignorable="d">
+
+    <Grid>
+        <GridView ItemsSource="{x:Bind Items}" SelectionMode="None"  >
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="local1:DictionaryExtension">
+                    <Grid Width="160"
+                          Padding="0 15"
+                          Height="270" Background="{ThemeResource ThemeBackgroundColorLevel1}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <MediaElement Grid.ColumnSpan="3"></MediaElement>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Border Background="{ThemeResource ThemeColorLevel6}"
+                                    CornerRadius="37.5" 
+                                    Width="75" Height="75">
+                                <Image Margin="0,0,0,0" Source="{Binding Path=Logo}" x:Name="ExtensionLogo" 
+                                       Stretch="UniformToFill"
+                                      ></Image>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Margin="10 10">
+                            <TextBlock Margin="0,0,0,0" x:Name="ExtensionTitle" FontWeight="Bold"
+                                       Text="{x:Bind AppExtension.DisplayName}" VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Text="{x:Bind AppExtension.Description}">
+                            </TextBlock>
+
+                            <!--<StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,0,0" Text="源语言：" HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                                <TextBlock Margin="0,0,0,0" HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,0,0" Text="目标语言：" HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                                <TextBlock Margin="0,0,0,0" HorizontalAlignment="Stretch" TextWrapping="Wrap"/>
+                            </StackPanel>-->
+                        </StackPanel>
+                        <StackPanel Grid.Row="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="启用">
+                                </TextBlock>
+                                <CheckBox x:Name="ExtensionCheckbox"
+                                          Margin="10,-5,0,0"
+                                          IsChecked="{Binding Path=Enabled}" VerticalAlignment="Top" 
+                                          MinWidth="20" Checked="CheckBox_Checked"
+                                          Unchecked="CheckBox_Unchecked"/>
+                            </StackPanel>
+                            <Button Margin="0,5,0,0" CornerRadius="15"
+                                    Width="70"
+                                    Background="{ThemeResource ThemeBackgroundColorLevel0}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Click="RemoveButton_Click"
+                                    Content="卸载"
+                            ></Button>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>       
+        </GridView>
+    </Grid>
+</Page>

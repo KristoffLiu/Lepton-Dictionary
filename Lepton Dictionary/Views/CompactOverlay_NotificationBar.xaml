@@ -1,0 +1,103 @@
+﻿<UserControl
+    x:Class="Lepton_Dictionary.Views.CompactOverlay_NotificationBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+    <controls:DropShadowPanel x:Name="MessageBar"
+                              HorizontalContentAlignment="Stretch"
+                              Margin="0,0,0,-140" ShadowOpacity="0.25"
+                              VerticalAlignment="Bottom"
+                              Height="40"
+                              Opacity="0"
+                              PointerEntered="MessageBar_PointerEntered"
+                              PointerExited="MessageBar_PointerExited"
+                              PointerCaptureLost="MessageBar_PointerCaptureLost"
+                              PointerMoved="MessageBar_PointerMoved"
+                              >
+        <controls:DropShadowPanel.RenderTransform>
+            <TranslateTransform></TranslateTransform>
+        </controls:DropShadowPanel.RenderTransform>
+        <controls:DropShadowPanel.Resources>
+            <Storyboard x:Name="NotificationBarOpen" Completed="NotificationBarOpen_Completed">
+                <DoubleAnimation Duration="0:0:0" From="0" To="1"
+                                     Storyboard.TargetProperty="Opacity"
+                                     Storyboard.TargetName="MessageBar">
+                    <!--<DoubleAnimation.EasingFunction>
+                            <CircleEase EasingMode="EaseIn"></CircleEase>
+                        </DoubleAnimation.EasingFunction>-->
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="MessageBar"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="0"
+                             To="0"
+                             Duration="0:0:0.6">
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="MessageBar"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="0"
+                             To="-150"
+                             Duration="0:0:0.6">
+                    <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseOut"></CircleEase>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="NotificationBarClose" Completed="NotificationBarClose_Completed">
+                <DoubleAnimation BeginTime="0:0:0.6" Duration="0:0:0" From="1" To="0"
+                                     Storyboard.TargetProperty="Opacity"
+                                     Storyboard.TargetName="MessageBar" >
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="MessageBar"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                             From="0"
+                             To="0"
+                             Duration="0:0:0.6">
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="MessageBar"
+                             Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                             From="-150"
+                             To="0"
+                             Duration="0:0:0.6">
+                    <DoubleAnimation.EasingFunction>
+                        <CircleEase EasingMode="EaseIn"></CircleEase>
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </controls:DropShadowPanel.Resources>
+        <Grid x:Name="MessageBarGrid"
+              Padding="2 2"
+              Background="{ThemeResource ThemeBackgroundColorLevel0_2}"
+              MinWidth="330"
+              Visibility="Visible">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+                <TextBlock  x:Name="MessageBarHeadline"
+                        Text="{x:Bind HeadlineText,Mode=OneWay}" Visibility="Collapsed"
+                       ></TextBlock>
+
+            <ScrollViewer Margin="0 0" Grid.Column="1" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled"
+                          HorizontalScrollBarVisibility='Hidden' HorizontalScrollMode="Enabled">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="MessageBarText" x:FieldModifier="public"
+                               FontSize="12" TextWrapping="NoWrap"
+                               VerticalAlignment="Center" Padding="5 0"
+                               Text="{x:Bind DescriptionText,Mode=OneWay}" IsTextSelectionEnabled="True"></TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+            <Button x:Name="Button1" x:FieldModifier="public" Margin="2 0" Grid.Column="2"></Button>
+            <Button x:Name="Button2" x:FieldModifier="public" Margin="2 0" Grid.Column="3"></Button>
+            <Button x:Name="Button3" x:FieldModifier="public" Margin="0 0" Grid.Column="4"></Button>
+        </Grid>
+    </controls:DropShadowPanel>
+
+</UserControl>

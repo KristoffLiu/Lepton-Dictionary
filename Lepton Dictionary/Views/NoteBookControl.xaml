@@ -1,0 +1,56 @@
+﻿<UserControl
+    x:Class="Lepton_Dictionary.Views.NoteBookControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Lepton_Dictionary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:dictionarypage="using:Lepton_Dictionary.ViewModels"
+    xmlns:muxc="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.Resources>
+        <dictionarypage:NoteBookItemsNumTextConverter x:Key="NoteBookItemsNumTextConverter"></dictionarypage:NoteBookItemsNumTextConverter>
+    </UserControl.Resources>
+    <Grid>
+        <Border x:Name="MainBorder"
+                Margin="0,0,0,-110" Height="180" Tapped="MainBorder_Tapped" >
+            <Border.Resources>
+                <FontIconSource x:Key="AcceptIcon" Glyph="&#xE10B;"/>
+                <FontIconSource x:Key="FlagIcon" Glyph="&#xE129;"/>
+                <FontIconSource x:Key="DeleteIcon" Glyph="&#xE74D;"/>
+                <FontIconSource x:Key="RenameIcon" Glyph="&#xE8AC;"/>
+                <SwipeItems x:Key="left" Mode="Reveal">
+                    <SwipeItem Text="重命名" IconSource="{StaticResource RenameIcon}" Background="Transparent"/>
+                    <SwipeItem Text="删除" IconSource="{StaticResource DeleteIcon}" Background="Transparent"/>
+                </SwipeItems>
+            </Border.Resources>
+            <SwipeControl RightItems="{StaticResource left}">
+                <Grid CornerRadius="10">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{x:Bind ViewModel.WordNoteBookViewModel.GradientBackground1,Mode=OneWay}"/>
+                            <GradientStop Color="{x:Bind ViewModel.WordNoteBookViewModel.GradientBackground2,Mode=OneWay}" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                    <StackPanel Margin="10,10,10,0">
+                        <TextBlock Text="{x:Bind ViewModel.WordNoteBookViewModel.SubHeadline,Mode=OneWay}" Foreground="White"
+                                   FontSize="16" FontWeight="Light" VerticalAlignment="Center"
+                                   Margin="5,0,0,0"></TextBlock>
+                        <TextBlock Text="{x:Bind ViewModel.WordNoteBookViewModel.Headline,Mode=OneWay}" FontWeight="Bold" Foreground="White"
+                                   FontSize="20" VerticalAlignment="Center"
+                                   Margin="5,0,0,0"></TextBlock>
+                    </StackPanel>
+                    <Grid VerticalAlignment="Bottom" Height="40" Background="#33000000">
+                        <TextBlock Text="{x:Bind ViewModel.WordListItemsCountNum,Converter={StaticResource NoteBookItemsNumTextConverter},Mode=OneWay}"
+                                   Foreground="White" FontWeight="Light"
+                                   VerticalAlignment="Center" HorizontalAlignment="Right"
+                                   Margin="0,0,20,0"></TextBlock>
+                    </Grid>
+                </Grid>
+            </SwipeControl>
+        </Border>
+    </Grid>
+</UserControl>
