@@ -21,9 +21,11 @@
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>268782D48AC423D0F302A0C0B73D40B5EDC7E42E</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>7C819DEC9BB2E0DA2DCFA3AD7DC0AD59B9CC33BA</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <PackageCertificateKeyFile>Lepton Dictionary_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -306,6 +308,7 @@
     <Content Include="Assets\Data\GradientColorResources.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Lepton Dictionary_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Team\Tammy-Picture.jpg" />
     <Content Include="Assets\Team\Fanshu-Picture.jpg" />
